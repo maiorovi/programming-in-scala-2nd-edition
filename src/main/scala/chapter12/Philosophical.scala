@@ -16,7 +16,7 @@ class Frog extends Animal with Philosophical with HasLegs {
 }
 
 
-object Demo123 {
+object Demo1234 {
   def main(args: Array[String]): Unit = {
     val frog = new Frog
 

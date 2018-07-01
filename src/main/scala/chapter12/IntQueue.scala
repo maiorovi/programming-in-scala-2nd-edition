@@ -8,6 +8,11 @@ abstract class IntQueue {
 
 }
 
+class MyQueue extends BasicIntQueue with Doubling
+
+trait Doubling extends IntQueue {
+  abstract override  def put(x: Int) = {super.put(2*x)}
+}
 
 class BasicIntQueue extends IntQueue {
   private val buf = new ArrayBuffer[Int]()
@@ -18,8 +23,21 @@ class BasicIntQueue extends IntQueue {
 }
 
 
-object Demo {
+object Demo123 {
   def main(args: Array[String]) : Unit = {
+    val queue = new BasicIntQueue()
+    queue.put(10)
+    queue.put(20)
 
+    println(queue.get())
+    println(queue.get())
+
+    val queue1 = new MyQueue()
+
+    queue1.put(10)
+    queue1.put(20)
+
+    println(queue1.get())
+    println(queue1.get())
   }
 }
