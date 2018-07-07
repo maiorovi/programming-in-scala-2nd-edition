@@ -21,6 +21,24 @@ check(1 until 10) { 40 / _ > 0 }
 //4.
 class Pair[A, B](a: A, b: B)
 
-//5.
+5.
 
-def permutations(x: String): Seq[String] = ???
+def permutations(x: String): Seq[String] = {
+  def loop(x: String, curr: String, acc:List[String]):Seq[String] = {
+    if (curr.length == x.length) {
+      return curr::acc
+    }
+
+    x.flatMap(ch => {
+      if (!curr.contains(ch)) {
+        loop(x, curr + ch, acc)
+      }  else acc
+    }).toList
+  }
+
+  loop(x, "", Nil)
+}
+
+permutations("abcd")
+//6.
+def combinations(n: Int, xs: Seq[Int]): Iterator[Seq[Int]] = ???
