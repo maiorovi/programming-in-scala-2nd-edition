@@ -1,4 +1,4 @@
-package concurrency_in_scala.chapter3
+package concurrency_in_scala.chapter3.filesystem
 
 sealed trait State
 class Idle extends State
