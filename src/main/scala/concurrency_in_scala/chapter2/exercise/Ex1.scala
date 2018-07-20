@@ -1,11 +1,8 @@
 package concurrency_in_scala.chapter2.exercise
 
 import concurrency_in_scala.chapter2.exercise.Common.thread
-import concurrency_in_scala.chapter2.exercise.Ex3AndEx4.SyncVar
-import concurrency_in_scala.chapter2.exercise.Ex5.container
+import concurrency_in_scala.chapter2.exercise.Ex5.SyncContainer
 import concurrency_in_scala.log
-
-import scala.collection.mutable.ArrayBuffer
 
 object Ex1 extends App {
   import Common.thread
@@ -120,7 +117,6 @@ object Ex3AndEx4 extends App{
 }
 
 object Ex5 extends App {
-  import Common.thread
 
   trait SyncContainer[T] {
     def getWait():T
@@ -198,8 +194,6 @@ object Ex5 extends App {
 
 object Ex6 extends App {
 
-  import Ex5.SyncVar
-  import Ex5.SyncContainer
   import scala.collection.mutable
 
   class SyncQueue[T](val n: Int) extends SyncContainer[T] {

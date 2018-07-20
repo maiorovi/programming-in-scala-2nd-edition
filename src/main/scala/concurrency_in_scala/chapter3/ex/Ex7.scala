@@ -1,9 +1,7 @@
-package concurrency_in_scala.chapter2.exercise
-
-import scala.collection.parallel.mutable
+package concurrency_in_scala.chapter3.ex
 
 object Ex7 {
-  import scala.collection.concurrent.Map;
+  import scala.collection.concurrent.Map
   import scala.collection.mutable;
 
   class SyncConcurrentMap[K,V] extends Map[K,V] {

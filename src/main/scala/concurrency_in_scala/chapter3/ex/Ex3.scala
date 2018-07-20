@@ -1,4 +1,4 @@
-package concurrency_in_scala.chapter2.exercise
+package concurrency_in_scala.chapter3.ex
 
 import java.util.concurrent.atomic.AtomicReference
 
@@ -52,8 +52,6 @@ object Ex6 {
         else l.get().get
       }
     }
-
-  }
 
   }
 }
