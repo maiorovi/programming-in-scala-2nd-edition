@@ -1,41 +1,45 @@
 package concurrency_in_scala.chapter5.ex
 
 import concurrency_in_scala.chapter2.log
+import concurrency_in_scala.chapter5.ex.Ex11.{i, summ}
 
 object Ex1 extends App {
   @volatile var dummy: Any = _
 
-  def allocate(): Unit = dummy = new Object()
+  def buildObjects(count: Int): Double = {
+    val start = System.nanoTime()
+    var i = 0
 
-  def warmUp(body: => Unit, times: Int) = {
-    for(x <- 0 until times) body
-  }
-
-  def measureTime(body: => Unit): Long = {
-    warmUp(body, 1000000)
-    val arr = new Array[Long](10000000)
-
-    for (x <- 0 until 10000000) {
-      arr(x) = doMeasurement(body)
+    while(i < count) {
+      dummy = new Object()
+      i += 1
     }
 
-    return arr.sum / arr.length
-  }
-
-  def doMeasurement(body: => Unit): Long = {
-    val start = System.nanoTime()
-
-    body
-
-    val end = System.nanoTime()
-
-    end - start
+    (System.nanoTime() - start) / count.toDouble
   }
 
 
+  var i = 0
+  var summ = 0D
 
-  println(measureTime(allocate()))
+  var timePrev = 0D
 
+  while( i < 30 ) {
+    val timeTaken = buildObjects(1000000)
+    val diff = Math.abs(timeTaken - timePrev) / timeTaken * 100
+
+    if (diff < 10) {
+      i += 1
+      summ += timeTaken
+    } else {
+      i = 0
+      summ = timeTaken
+    }
+
+    timePrev = timeTaken
+    log(s"time = ${timeTaken.toString} e = ${Math.round(diff)}, i = $i")
+  }
+    log(s"avg ${summ/(i+1)} ")
 }
 
 object Ex11 extends App {
