@@ -2,6 +2,7 @@ package concurrency_in_scala.chapter6
 
 import rx.lang.scala.Observable
 
+import scala.collection.parallel.mutable
 import scala.concurrent.Future
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits.global
@@ -32,6 +33,29 @@ object Three1 extends App {
   def quotes: Observable[Observable[String]] = Observable.interval(0.5.seconds).take(4).map {
     n => fetchQuotesObservable().map(txt => s"$n) $txt")
   }
+
+  var values = Set.empty[Int]
+
+  def countAverage(): Double = values.sum / values.size
+
+//  val avg = quotes.flatMap(q => {
+//    q.map(s => {
+//      values += s.length
+//      countAverage()
+//    })
+//  })
+
+//  avg.subscribe(avg => println(s">>>> avg is ${avg}"))
+
+  val avg = quotes
+    .flatten
+    .scan((0L, 0)) {
+      case (p, q) => (p._1 + q.length, p._2 + 1)
+    }
+      .tail
+      .map(p => p._1 / p._2)
+      .subscribe(avg => println(s">>>> avg is ${avg}"))
+
 
   log(s"Using concat")
   quotes.concat.subscribe(x => log(x))
