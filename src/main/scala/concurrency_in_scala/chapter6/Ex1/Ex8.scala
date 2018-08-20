@@ -54,3 +54,7 @@ object TestA extends App {
 
   Thread.sleep(10000)
 }
+
+//some sql
+//merge into person p using person1 p1 on(p.tabn = p1.tabn)
+//when matched then update set p.age = DECODE(p1.age, 22, 100, 123);
